@@ -29,4 +29,14 @@ public class NoteServiceImpl implements NoteService {
         }
         return noteRepo.save(modelMapper.map(note, NoteEntity.class));
     }
+
+    @Override
+    public String deleteNote(int note) {
+        if (noteRepo.existsById(note)) {
+            noteRepo.deleteById(note);
+        }else {
+            throw new ResourceNotFoundException("Note Not exists!");
+        }
+        return "Note Deleted";
+    }
 }

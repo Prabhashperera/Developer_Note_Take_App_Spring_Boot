@@ -35,4 +35,10 @@ public class NoteController {
         }
         return ResponseEntity.ok(new ApiResponse("Job Updated", HttpStatus.OK, note));
     }
+
+    @DeleteMapping("delete/{noteId}")
+    public ResponseEntity<ApiResponse> deleteNote(@Valid @PathVariable int noteId) {
+        String noteMsg = noteService.deleteNote(noteId);
+        return ResponseEntity.ok(new ApiResponse(noteMsg, HttpStatus.OK, null));
+    }
 }
