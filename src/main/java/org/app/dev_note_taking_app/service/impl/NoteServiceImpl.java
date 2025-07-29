@@ -1,6 +1,7 @@
 package org.app.dev_note_taking_app.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.app.dev_note_taking_app.Exception.ResourceNotFoundException;
 import org.app.dev_note_taking_app.dto.NoteDto;
 import org.app.dev_note_taking_app.entity.NoteEntity;
 import org.app.dev_note_taking_app.repo.NoteRepo;
@@ -17,6 +18,15 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteEntity saveNote(NoteDto note) {
+        return noteRepo.save(modelMapper.map(note, NoteEntity.class));
+    }
+
+    @Override
+    public NoteEntity updateNote(NoteDto note) {
+        boolean isExists = noteRepo.existsById(note.getNoteId());
+        if (!isExists) {
+            throw new ResourceNotFoundException("Note Not exists!");
+        }
         return noteRepo.save(modelMapper.map(note, NoteEntity.class));
     }
 }

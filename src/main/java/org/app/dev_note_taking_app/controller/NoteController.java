@@ -26,4 +26,13 @@ public class NoteController {
                 new ApiResponse("Job Saved", HttpStatus.OK, note)
         );
     }
+
+    @PutMapping("update")
+    public ResponseEntity<ApiResponse> updateNote(@Valid @RequestBody NoteDto note) {
+        NoteEntity noteEntity = noteService.updateNote(note);
+        if (noteEntity == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.ok(new ApiResponse("Job Updated", HttpStatus.OK, note));
+    }
 }

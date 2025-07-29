@@ -21,5 +21,5 @@ public class NoteDto {
     private String content;
     private String createdDate;
     private String lastModifiedData;
-    private String category; // Optional
+    private String category;
 }
